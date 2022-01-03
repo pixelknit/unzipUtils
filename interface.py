@@ -7,10 +7,12 @@ import os
 THEME_COLOR = "#375362"
 
 class FolderInterface:
-    def __init__(self, dirpath):
+    def __init__(self):
         self.window = Tk()
         self.window.title("unzipper")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
+
+        self.opened_dir = None
 
         self.folder_name_label = Label(text="Place holder", bg=THEME_COLOR)
         self.folder_name_label.grid(row=0, column=1)
@@ -29,21 +31,27 @@ class FolderInterface:
         self.cook_btn.grid(row=3,column=1)
         
         #second button
-        self.openDir_btn = Button(self.window, text="Open", command=self.openDirectory)
+        self.open_btn_image = PhotoImage(file="images/button.png")
+        self.openDir_btn = Button(image=self.open_btn_image, highlightthickness=0, bg=THEME_COLOR, command=self.openDirectory)
         self.openDir_btn.grid(row=4,column=1)
-
+        
+        #unzip button
+        self.unzip_btn_image = PhotoImage(file="images/button.png")
+        self.unzip_btn = Button(image=self.open_btn_image, highlightthickness=0, bg=THEME_COLOR, command=self.unzipAll)
+        self.unzip_btn.grid(row=5,column=1)
 
         self.window.mainloop()
     
     def openDirectory(self):
-        self.open_folder = filedialog.askdirectory()
-        return self.open_folder
+        #self.open_folder = filedialog.askdirectory()
+        self.opened_dir = filedialog.askdirectory()
+        #return self.open_folder
     
     def unzipAll(self):
-        zipfiles = [file for file in os.listdir(self.open_folder)if file.endswith(".zip")]
+        zipfiles = [file for file in os.listdir(self.opened_dir) if file.endswith(".zip")]
         for zipf in zipfiles:
-            with zipfile.ZipFile(self.open_folder + "\\" + zipf, 'r') as zip_ref:
-                zip_ref.extractall(self.open_folder)
+            with zipfile.ZipFile(self.opened_dir + "/" + zipf, 'r') as zip_ref:
+                zip_ref.extractall(self.opened_dir)
             print(f"Done extracting {zipf}")
             break
         print("All done!")
