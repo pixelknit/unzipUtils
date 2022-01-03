@@ -14,6 +14,7 @@ class UnzipUtils:
             with zipfile.ZipFile(self.dirpath + "\\" + zipf, 'r') as zip_ref:
                 zip_ref.extractall(self.dirpath)
             print(f"Done extracting {zipf}")
+            break
         print("All done!")
 
     def deleteZipFiles(self):
@@ -21,22 +22,23 @@ class UnzipUtils:
         for zfile in zipfiles:
             os.remove(self.dirpath + "\\" + zfile)
             print(f"File {zfile} deleted!")
+            break
 
 
-folder1 = UnzipUtils(DIRPATH)
+#folder1 = UnzipUtils(DIRPATH)
 
-thread1 = threading.Thread(target=folder1.unzipAll)
-thread2 = threading.Thread(target=folder1.deleteZipFiles)
-thread1.start()
-thread1.join()
+#thread1 = threading.Thread(target=folder1.unzipAll)
+#thread2 = threading.Thread(target=folder1.deleteZipFiles)
+#thread1.start()
+#thread1.join()
 #folder1.unzipAll()
 
-user_choice = input("all the files were unzipped, would you like to delete the ORIGINAL zip files, YES or NO?: ")
-if user_choice.lower() == "yes":
-    thread2.start()
-    #folder1.deleteZipFiles()
-else:
-    "All original zip files will stay.."
+#user_choice = input("all the files were unzipped, would you like to delete the ORIGINAL zip files, YES or NO?: ")
+#if user_choice.lower() == "yes":
+#    thread2.start()
+#    #folder1.deleteZipFiles()
+#else:
+#    "All original zip files will stay.."
 
 
 

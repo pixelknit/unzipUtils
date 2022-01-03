@@ -1,12 +1,13 @@
 from tkinter import *
 import tkinter.ttk
 from tkinter import filedialog
+import zipfile
 import os
 
 THEME_COLOR = "#375362"
 
 class FolderInterface:
-    def __init__(self):
+    def __init__(self, dirpath):
         self.window = Tk()
         self.window.title("unzipper")
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
@@ -36,7 +37,23 @@ class FolderInterface:
     
     def openDirectory(self):
         self.open_folder = filedialog.askdirectory()
-        print(self.open_folder)
+        return self.open_folder
+    
+    def unzipAll(self):
+        zipfiles = [file for file in os.listdir(self.open_folder)if file.endswith(".zip")]
+        for zipf in zipfiles:
+            with zipfile.ZipFile(self.open_folder + "\\" + zipf, 'r') as zip_ref:
+                zip_ref.extractall(self.open_folder)
+            print(f"Done extracting {zipf}")
+            break
+        print("All done!")
+
+    def deleteZipFiles(self):
+        zipfiles = [file for file in os.listdir(self.open_folder) if file.endswith(".zip")]
+        for zfile in zipfiles:
+            os.remove(self.open_folder + "\\" + zfile)
+            print(f"File {zfile} deleted!")
+            break
 
     def bar(self):
         import time
