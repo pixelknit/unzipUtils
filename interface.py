@@ -4,7 +4,8 @@ from tkinter import filedialog
 import zipfile
 import os
 
-THEME_COLOR = "#375362"
+#THEME_COLOR = "#375362"
+THEME_COLOR = "#444953"
 
 class FolderInterface:
     def __init__(self):
