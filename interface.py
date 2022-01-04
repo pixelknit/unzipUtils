@@ -32,12 +32,12 @@ class FolderInterface:
         
         #second button
         self.open_btn_image = PhotoImage(file="images/button.png")
-        self.openDir_btn = Button(image=self.open_btn_image, highlightthickness=0, bg=THEME_COLOR, command=self.openDirectory)
+        self.openDir_btn = Button(bg=THEME_COLOR, image=self.open_btn_image, bd=0, highlightthickness=0, command=self.openDirectory)
         self.openDir_btn.grid(row=4,column=1)
         
         #unzip button
-        self.unzip_btn_image = PhotoImage(file="images/button.png")
-        self.unzip_btn = Button(image=self.open_btn_image, highlightthickness=0, bg=THEME_COLOR, command=self.unzipAll)
+        self.unzip_btn_image = PhotoImage(file="images/button_unzip.png")
+        self.unzip_btn = Button(image=self.unzip_btn_image, bd=0, highlightthickness=0, bg=THEME_COLOR, command=self.unzipAll)
         self.unzip_btn.grid(row=5,column=1)
 
         self.window.mainloop()
