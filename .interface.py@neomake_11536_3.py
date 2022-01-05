@@ -14,30 +14,27 @@ class FolderInterface:
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
 
         self.opened_dir = None
-        self.zip_files = None
 
-        self.folder_name_label = Label(text="Select Folder:", bg=THEME_COLOR, fg="White")
+        self.folder_name_label = Label(text="Open Folder", bg=THEME_COLOR, fg="White")
         self.folder_name_label.grid(row=0, column=1)
-        
-        #Open button
-        self.open_btn_image = PhotoImage(file="images/button.png")
-        self.openDir_btn = Button(bg=THEME_COLOR, image=self.open_btn_image, bd=0, highlightbackground=THEME_COLOR, highlightthickness=0, command=self.openDirectory)
-        self.openDir_btn.grid(row=1,column=1)
 
-        #Middle Text
         self.central_canvas = Canvas(width=300, height=250, highlightthickness=0, bg="White")
-        self.central_text = self.central_canvas.create_text(150,75, width=280, text="", fill="#000000", font=("Arial", 20, "italic"))
-        self.central_canvas.grid(row=2, column=0, columnspan=3, pady=50)
+        self.central_text = self.central_canvas.create_text(150,75, width=280, text="something", fill="#000000", font=("Arial", 20, "italic"))
+        self.central_canvas.grid(row=1, column=0, columnspan=3, pady=50)
 
         self.progress = tkinter.ttk.Progressbar(self.window, orient=HORIZONTAL,
               length = 100, mode = 'determinate')
-        self.progress.grid(row=3, column=1, pady=10)
+        self.progress.grid(row=2, column=1, pady=10)
 
 
         #first button
-        self.cook_btn = Button(self.window, text="Cook", fg="Black", highlightthickness=0, highlightbackground=THEME_COLOR, command=self.bar)
-        self.cook_btn.grid(row=4,column=1)
+        self.cook_btn = Button(self.window, text="Cook", highlightthickness=0, bg=THEME_COLOR, command=self.bar)
+        self.cook_btn.grid(row=3,column=1)
         
+        #second button
+        self.open_btn_image = PhotoImage(file="images/button.png")
+        self.openDir_btn = Button(bg=THEME_COLOR, image=self.open_btn_image, bd=0, highlightthickness=0, command=self.openDirectory)
+        self.openDir_btn.grid(row=4,column=1)
         
         #unzip button
         self.unzip_btn_image = PhotoImage(file="images/button_unzip.png")
@@ -47,15 +44,13 @@ class FolderInterface:
         self.window.mainloop()
     
     def openDirectory(self):
-        #temp list to catch lenght
+        #self.open_folder = filedialog.askdirectory()
         self.opened_dir = filedialog.askdirectory()
-        self.zip_files = [file for file in os.listdir(self.opened_dir) if file.endswith(".zip")]
-        self.central_canvas.itemconfig(self.central_text, text=f"{len(self.zip_files)} zip files found in: {self.opened_dir}")
-
+        #return self.open_folder
     
     def unzipAll(self):
-        #zipfiles = [file for file in os.listdir(self.opened_dir) if file.endswith(".zip")]
-        for zipf in self.zip_files:
+        zipfiles = [file for file in os.listdir(self.opened_dir) if file.endswith(".zip")]
+        for zipf in zipfiles:
             with zipfile.ZipFile(self.opened_dir + "/" + zipf, 'r') as zip_ref:
                 zip_ref.extractall(self.opened_dir)
             print(f"Done extracting {zipf}")
@@ -63,8 +58,8 @@ class FolderInterface:
         print("All done!")
 
     def deleteZipFiles(self):
-        #zipfiles = [file for file in os.listdir(self.open_folder) if file.endswith(".zip")]
-        for zfile in self.zip_files:
+        zipfiles = [file for file in os.listdir(self.open_folder) if file.endswith(".zip")]
+        for zfile in zipfiles:
             os.remove(self.open_folder + "\\" + zfile)
             print(f"File {zfile} deleted!")
             break
