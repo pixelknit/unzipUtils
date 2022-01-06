@@ -84,15 +84,10 @@ class FolderInterface:
         for x in os.walk(dirpath):
             for y in glob.glob(os.path.join(x[0], "*.fbx")):
                 fbx_files.append(y)
-        
-        files = fbx_files
-
-        h = {"fbx files" : files}
-
-        df = pd.DataFrame(h)
+        df = pd.DataFrame(fbx_files)
         df.to_csv("test_csv.csv")
 
-        data = pd.read_csv("test_csv.csv")
+        data = pd.read_csv("test_csv.csv", index_col=0)
         print(data)
             
 
