@@ -53,8 +53,8 @@ class FolderInterface:
 
 
         #Dele button tmp 
-        self.delete_btn_image = PhotoImage(file="images/delete_button.png")
-        self.delete_btn = Button(image=self.delete_btn_image, bd=0, highlightthickness=0, bg=THEME_COLOR, command=self.deleteZipFiles)
+        self.delete_btn_image = PhotoImage(file="images/.png")
+        self.delete_btn = Button(image=self.csv_btn_image, bd=0, highlightthickness=0, bg=THEME_COLOR, command=self.deleteZipFiles)
         self.delete_btn.grid(row=7, column=1)
 
         self.window.mainloop()
